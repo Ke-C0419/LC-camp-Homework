@@ -1,0 +1,52 @@
+Week 1: Problem Assignments
+
+Contains Duplicate (Easy)
+
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        s = set()
+        for num in nums:
+            if num in s: return True
+            s.add(num)
+        return False
+
+
+Container With Most Water (Medium)
+
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        res  = 0
+        left = 0
+        right = len(height) - 1
+        while left < right :
+            res = max (res, min( height[left], height[right]) * (right - left))
+            if height[left] < height[right] :
+                left +=1
+            else : 
+                right -=1
+        return res
+
+
+
+
+Sliding Window Maximum (Hard)
+
+
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        res = []
+        index = 0
+        q= deque()
+
+        while index < len(nums) :
+            while q and q[0]<index+1-k:
+                q.popleft()
+            while q and nums[q[-1]]< nums[index]:
+                q.pop()
+            q.append(index)
+
+            if index >= k-1 :
+                res.append(nums[q[0]])
+            index +=1 
+        return res 
+
